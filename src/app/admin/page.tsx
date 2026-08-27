@@ -17,7 +17,7 @@ export default async function AdminPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
-      <div className="mb-2 flex items-center justify-between gap-4">
+      <div className="mb-2 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="font-display text-3xl font-black uppercase tracking-tight">
             Administración de androides

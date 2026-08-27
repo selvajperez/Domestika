@@ -87,14 +87,14 @@ export function CartView({ androids }: { androids: Android[] }) {
 
   return (
     <div>
-      <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
-        <div>
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+        <div className="min-w-0">
           {lines.map((line) => (
             <CartItemRow key={`${line.android.id}-${line.item.mode}`} line={line} />
           ))}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           <DeliverySelector androids={lines.map((line) => line.android)} />
           <OrderSummary
             totalUnits={totals.totalUnits}

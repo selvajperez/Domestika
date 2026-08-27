@@ -34,7 +34,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-black text-white">
       <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <span className="font-display text-2xl font-black tracking-tight">
               DOM<span className="text-brand-red">É</span>STIKA

@@ -57,8 +57,8 @@ export default async function AndroidDetailPage({
         <span className="text-black">{android.name}</span>
       </nav>
 
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
-        <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.1fr]">
+        <div className="flex min-w-0 flex-col gap-4">
           <div className="relative">
             <PlaceholderPortrait
               label={android.name}
@@ -77,7 +77,7 @@ export default async function AndroidDetailPage({
           )}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-brand-red">
               {android.functionTitle}
