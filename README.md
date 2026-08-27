@@ -13,9 +13,12 @@ npm run dev
 
 Abrí [http://localhost:3000](http://localhost:3000).
 
-La Home y el catálogo temporal usan datos locales en
-`src/data/seed/androids.ts` (los 14 androides Súper Sónicos). Esto se
-reemplaza por datos en vivo de Supabase en la Fase 5.
+Todo el sitio (Home, catálogo, fichas, admin) usa datos locales en
+`src/data/seed/androids.ts` (los 14 androides Súper Sónicos) hasta que
+conectes un proyecto Supabase real — ver más abajo. El cambio es
+automático: en cuanto las variables de entorno estén configuradas, la
+misma capa de datos (`src/lib/data/androids.ts`) empieza a leer de
+Supabase sin tocar código.
 
 ## Supabase
 
@@ -79,3 +82,44 @@ se expone al cliente, solo la usan las Server Actions en
 13). Antes de desplegar este proyecto en un lugar público, `/admin` debe
 protegerse con Supabase Auth o un gate equivalente — hoy cualquiera con la
 URL puede editar o borrar androides si el proyecto está conectado.
+
+## QA (Fase 10)
+
+Antes de cada entrega se corrió, contra un servidor real (`npm run dev`) y
+no solo mentalmente:
+
+- **Responsive**: auditoría automatizada con Playwright en 375/768/1440px
+  sobre las 9 rutas (más `/carrito`, `/comparar` y `/favoritos` con datos
+  reales cargados) verificando `scrollWidth` vs `clientWidth` — cero
+  overflow horizontal. Encontró y corrigió 5 bugs reales (breakpoint del
+  menú, cuatro grillas sin `grid-cols-1` explícito en mobile, header del
+  admin sin wrap, tipografía del H1 de Home).
+- **Links y consola**: crawler que recorre todos los links internos desde
+  cada página (incluidas las 14 fichas de producto y las 14 fichas de
+  admin) — cero rutas rotas, cero errores de consola.
+- **Build**: `npm run build` limpio, sin warnings de TypeScript ni ESLint.
+
+Correr de nuevo en cualquier momento con `npm run build` +
+`npx tsc --noEmit` + `npx eslint .`; no hay suite de tests automatizados
+todavía (fuera del alcance definido para este proyecto).
+
+## Deploy en Vercel
+
+Este entorno no tiene acceso a tu cuenta de Vercel, así que el deploy en sí
+lo hacés vos — el proyecto ya está listo (`npm run build` pasa limpio):
+
+1. En [vercel.com/new](https://vercel.com/new), importá el repositorio
+   `selvajperez/domestika`. Vercel detecta Next.js automáticamente, no
+   hace falta tocar la configuración de build.
+2. Si ya conectaste Supabase, agregá en el proyecto de Vercel (Settings →
+   Environment Variables) las mismas variables de `.env.local`:
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` y
+   `SUPABASE_SERVICE_ROLE_KEY` (esta última marcada como secreta, nunca
+   con el prefijo `NEXT_PUBLIC_`). Sin ellas, el sitio deployado funciona
+   igual, pero con el catálogo del seed local y el admin en solo lectura.
+3. Deploy. Cualquier push a `main` vuelve a deployar automáticamente.
+
+**Antes de compartir la URL pública**: `/admin` no tiene autenticación
+(ver arriba). Si vas a conectar Supabase en producción, protegé esa ruta
+primero — si no, dejá el proyecto sin las variables de Supabase para que
+el admin quede en modo solo lectura por defecto.
