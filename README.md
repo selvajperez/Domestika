@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DOMÉSTIKA
 
-## Getting Started
+Tienda ficticia de androides domésticos — proyecto de portfolio Full-Stack.
+Next.js (App Router) + TypeScript + Tailwind + shadcn/ui + Framer Motion +
+Zustand + Supabase.
 
-First, run the development server:
+## Desarrollo local
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrí [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+La Home y el catálogo temporal usan datos locales en
+`src/data/seed/androids.ts` (los 14 androides Súper Sónicos). Esto se
+reemplaza por datos en vivo de Supabase en la Fase 5.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Supabase
 
-## Learn More
+El esquema vive en `supabase/migrations/` y el seed en `supabase/seed.sql`
+(generado desde `src/data/seed/androids.ts` — no editar a mano, correr
+`npx tsx scripts/generate-seed-sql.ts` después de cambiar el seed local).
 
-To learn more about Next.js, take a look at the following resources:
+### Paso manual (una vez): crear el proyecto
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Este entorno no tiene acceso a tu cuenta de Supabase, así que este paso lo
+hacés vos:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Creá un proyecto en [supabase.com](https://supabase.com/dashboard).
+2. En el SQL Editor del proyecto, corré en orden:
+   - `supabase/migrations/20260827013950_create_androids_schema.sql`
+   - `supabase/seed.sql`
+3. Copiá `.env.local.example` a `.env.local` y completá `NEXT_PUBLIC_SUPABASE_URL`
+   y `NEXT_PUBLIC_SUPABASE_ANON_KEY` desde Settings → API del proyecto.
 
-## Deploy on Vercel
+### CLI (opcional, para seguir versionando el esquema)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx supabase login          # abre el navegador, requiere tu cuenta
+npx supabase link --project-ref <ref-de-tu-proyecto>
+npx supabase db push        # aplica las migraciones pendientes
+npx supabase gen types typescript --linked > src/lib/supabase/database.types.ts
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+El esquema fue validado localmente contra Postgres 16 (tablas, índices,
+triggers, políticas RLS y el seed de los 14 androides) antes de commitear,
+pero no contra un proyecto Supabase real: revisá que corra limpio en el
+SQL Editor la primera vez.
+
+### Modelo de datos
+
+- `androids`: tabla principal (spec sección 7.1). `specs` es `jsonb` con
+  pares clave/valor para la ficha técnica.
+- `android_capabilities`, `android_gallery`: tablas auxiliares (spec 7.2).
+- RLS habilitado en las tres tablas: lectura pública solo de androides
+  `active = true`; sin políticas de escritura para `anon`/`authenticated`
+  (las escrituras del admin usan la service role key hasta que se agregue
+  autenticación, spec sección 13).

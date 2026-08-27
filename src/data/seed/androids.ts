@@ -5,7 +5,7 @@ import type { Android } from "@/types/android";
 // definitivas todavía; se conecta a Supabase en una fase posterior.
 export const ANDROIDS: Android[] = [
   {
-    id: "ang-01",
+    id: "a6a22efe-014a-4f18-8063-9ff619f654ad",
     code: "ANG-01",
     name: "Ángela",
     model: "ANG-01",
@@ -53,7 +53,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ys-02",
+    id: "658492d9-429d-47a0-8fba-83620ad2447f",
     code: "YS-02",
     name: "Yun Sil",
     model: "YS-02",
@@ -101,7 +101,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "rm-03",
+    id: "3be4c00a-07a8-421a-a118-42261e55ddc3",
     code: "RM-03",
     name: "Ramón",
     model: "RM-03",
@@ -149,7 +149,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "cr-04",
+    id: "2f56fa24-ab29-4819-9c49-89704ecd4903",
     code: "CR-04",
     name: "Carlo",
     model: "CR-04",
@@ -196,7 +196,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-05",
+    id: "f12b8d57-a642-4de9-86cd-68892877e088",
     code: "SS-05",
     name: "Catbot",
     model: "SS-05",
@@ -244,7 +244,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-06",
+    id: "ef022957-986a-48ac-af07-54b592082860",
     code: "SS-06",
     name: "Dogbot",
     model: "SS-06",
@@ -292,7 +292,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-octo",
+    id: "372ed612-8ad8-45c0-a11e-2c1f834ecba4",
     code: "OCTO",
     name: "Octo",
     model: "SS-2087-OCTO",
@@ -339,7 +339,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-chofer",
+    id: "e37c664e-2624-4caf-bb07-04de949aa375",
     code: "CHOFER",
     name: "Chofer",
     model: "SS-2087-CHOFER",
@@ -386,7 +386,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-mary",
+    id: "2f0a2d2d-2d08-4a78-b020-6b8efdc70c40",
     code: "MARY",
     name: "Mary",
     model: "SS-2087-MARY",
@@ -433,7 +433,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-felix",
+    id: "56c26ef4-1ded-4530-ad8b-c81f53933307",
     code: "FÉLIX",
     name: "Félix",
     model: "SS-2087-FÉLIX",
@@ -480,7 +480,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-jane",
+    id: "c6c49984-755e-4ba7-9360-7fb594e34c76",
     code: "JANE",
     name: "Jane",
     model: "SS-2087-JANE",
@@ -527,7 +527,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-freddie",
+    id: "29297c57-6c89-4970-bc28-d16a83ce77ae",
     code: "FREDDIE",
     name: "Freddie",
     model: "SS-2087-FREDDIE",
@@ -574,7 +574,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "j9-000-1",
+    id: "fdf8c136-2ba4-4e79-86b5-6bfe560da077",
     code: "J9-000-1",
     name: "Jeeves-9",
     model: "J9-000-1",
@@ -621,7 +621,7 @@ export const ANDROIDS: Android[] = [
     active: true,
   },
   {
-    id: "ss-2087-upa",
+    id: "74b62ee9-f274-4a58-860c-d6f197f6ba42",
     code: "UPA",
     name: "Upa",
     model: "SS-2087-UPA",
