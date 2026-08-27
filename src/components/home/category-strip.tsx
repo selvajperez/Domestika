@@ -1,25 +1,7 @@
 import Link from "next/link";
-import {
-  HeartPulse,
-  Sparkles,
-  Leaf,
-  ShieldCheck,
-  Smile,
-  Gamepad2,
-  Wrench,
-} from "lucide-react";
 
 import { ANDROID_CATEGORY_LABELS, type AndroidCategory } from "@/types/android";
-
-const CATEGORY_ICONS: Record<AndroidCategory, React.ComponentType<{ className?: string }>> = {
-  cuidados: HeartPulse,
-  limpieza: Sparkles,
-  jardineria: Leaf,
-  seguridad: ShieldCheck,
-  compania: Smile,
-  entretenimiento: Gamepad2,
-  asistencia: Wrench,
-};
+import { CATEGORY_ICONS } from "@/lib/category-icons";
 
 export function CategoryStrip() {
   const categories = Object.keys(ANDROID_CATEGORY_LABELS) as AndroidCategory[];
