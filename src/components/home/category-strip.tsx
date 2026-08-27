@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 import { ANDROID_CATEGORY_LABELS, type AndroidCategory } from "@/types/android";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
@@ -29,9 +32,11 @@ export function CategoryStrip() {
               <Link
                 key={category}
                 href={`/androides?categoria=${category}`}
-                className="flex flex-col items-center gap-3 bg-white px-4 py-8 text-center transition-colors hover:bg-black hover:text-white"
+                className="group flex flex-col items-center gap-3 bg-white px-4 py-8 text-center transition-colors hover:bg-black hover:text-white"
               >
-                <Icon className="size-6" />
+                <motion.span whileHover={{ scale: 1.15 }} transition={{ duration: 0.2 }}>
+                  <Icon className="size-6" />
+                </motion.span>
                 <span className="text-xs font-bold uppercase tracking-wide">
                   {ANDROID_CATEGORY_LABELS[category]}
                 </span>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence } from "framer-motion";
 import { CheckCircle2, ShoppingCart } from "lucide-react";
 
 import type { Android } from "@/types/android";
@@ -89,9 +90,11 @@ export function CartView({ androids }: { androids: Android[] }) {
     <div>
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
         <div className="min-w-0">
-          {lines.map((line) => (
-            <CartItemRow key={`${line.android.id}-${line.item.mode}`} line={line} />
-          ))}
+          <AnimatePresence initial={false}>
+            {lines.map((line) => (
+              <CartItemRow key={`${line.android.id}-${line.item.mode}`} line={line} />
+            ))}
+          </AnimatePresence>
         </div>
 
         <div className="flex min-w-0 flex-col gap-6">

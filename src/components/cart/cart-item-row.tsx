@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
 
 import type { CartLine } from "@/lib/business-rules/cart";
@@ -18,7 +19,13 @@ export function CartItemRow({ line }: { line: CartLine }) {
   );
 
   return (
-    <div className="flex flex-col gap-4 border-b border-black/10 py-6 sm:flex-row">
+    <motion.div
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, height: 0, marginTop: 0, marginBottom: 0 }}
+      transition={{ duration: 0.25 }}
+      className="flex flex-col gap-4 overflow-hidden border-b border-black/10 py-6 sm:flex-row">
       <PlaceholderPortrait
         label={android.name}
         code={android.code}
@@ -107,6 +114,6 @@ export function CartItemRow({ line }: { line: CartLine }) {
           Guardar para después
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, BatteryCharging } from "lucide-react";
 
 import type { Android } from "@/types/android";
@@ -13,7 +16,14 @@ export function RobotCard({ android }: { android: Android }) {
   const isAvailable = android.stock > 0;
 
   return (
-    <div className="group relative flex flex-col border border-black/10 bg-white text-black transition-shadow hover:shadow-lg">
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+      whileHover={{ y: -4 }}
+      className="group relative flex flex-col border border-black/10 bg-white text-black transition-shadow hover:shadow-lg"
+    >
       <div className="relative">
         <PlaceholderPortrait label={android.name} code={android.code} className="aspect-square" />
         <Badge variant="default" className="absolute left-3 top-3">
@@ -79,6 +89,6 @@ export function RobotCard({ android }: { android: Android }) {
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }
