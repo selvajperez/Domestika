@@ -6,26 +6,34 @@ import { ANDROID_CATEGORY_LABELS } from "@/types/android";
 import { formatCurrency } from "@/lib/formatters/currency";
 import { PlaceholderPortrait } from "./placeholder-portrait";
 import { Badge } from "@/components/ui/badge";
+import { FavoriteButton } from "./favorite-button";
+import { CompareToggle } from "./compare-toggle";
 
 export function RobotCard({ android }: { android: Android }) {
   const isAvailable = android.stock > 0;
 
   return (
-    <Link
-      href={`/androides/${android.slug}`}
-      className="group flex flex-col border border-black/10 bg-white text-black transition-shadow hover:shadow-lg"
-    >
+    <div className="group relative flex flex-col border border-black/10 bg-white text-black transition-shadow hover:shadow-lg">
       <div className="relative">
         <PlaceholderPortrait label={android.name} code={android.code} className="aspect-square" />
         <Badge variant="default" className="absolute left-3 top-3">
           {ANDROID_CATEGORY_LABELS[android.category]}
         </Badge>
+        <div className="absolute right-3 top-3 z-10 flex gap-2">
+          <CompareToggle androidId={android.id} className="size-8" />
+          <FavoriteButton androidId={android.id} className="size-8 bg-white" />
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div>
           <h3 className="font-display text-xl font-black uppercase tracking-tight">
-            {android.name}
+            <Link
+              href={`/androides/${android.slug}`}
+              className="after:absolute after:inset-0 after:z-0 after:content-['']"
+            >
+              {android.name}
+            </Link>
           </h3>
           <p className="text-sm text-neutral-500">{android.functionTitle}</p>
         </div>
@@ -71,6 +79,6 @@ export function RobotCard({ android }: { android: Android }) {
           <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
         </span>
       </div>
-    </Link>
+    </div>
   );
 }

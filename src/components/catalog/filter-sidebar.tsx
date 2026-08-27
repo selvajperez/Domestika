@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { GitCompareArrows } from "lucide-react";
 
 import { ANDROID_CATEGORY_LABELS, type AndroidCategory } from "@/types/android";
 import { CATEGORY_ICONS } from "@/lib/category-icons";
+import { useCompareStore } from "@/store/compare-store";
 
 const CATEGORIES = Object.keys(ANDROID_CATEGORY_LABELS) as AndroidCategory[];
 
@@ -22,6 +25,7 @@ export function FilterSidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const compareCount = useCompareStore((state) => state.androidIds.length);
 
   const selectedCategories = searchParams.getAll("categoria") as AndroidCategory[];
   const compra = searchParams.get("compra") === "1";
@@ -130,6 +134,14 @@ export function FilterSidebar() {
           Solo disponibles ahora
         </label>
       </FilterGroup>
+
+      <Link
+        href="/comparar"
+        className="mt-5 flex items-center justify-center gap-2 border border-black bg-black px-4 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors hover:bg-neutral-800"
+      >
+        <GitCompareArrows className="size-4" />
+        Ver comparador ({compareCount})
+      </Link>
     </aside>
   );
 }
