@@ -3,6 +3,20 @@
 //   npx supabase gen types typescript --linked > src/lib/supabase/database.types.ts
 import type { AndroidCategory, AndroidSpec } from "@/types/android";
 
+type NoRelationships = { Relationships: [] };
+
+type BelongsToAndroid = {
+  Relationships: [
+    {
+      foreignKeyName: "android_id_fkey";
+      columns: ["android_id"];
+      isOneToOne: false;
+      referencedRelation: "androids";
+      referencedColumns: ["id"];
+    },
+  ];
+};
+
 export interface Database {
   public: {
     Tables: {
@@ -54,7 +68,7 @@ export interface Database {
           purchase_price: number;
         };
         Update: Partial<Database["public"]["Tables"]["androids"]["Row"]>;
-      };
+      } & NoRelationships;
       android_capabilities: {
         Row: {
           id: string;
@@ -69,7 +83,7 @@ export interface Database {
           description: string;
         };
         Update: Partial<Database["public"]["Tables"]["android_capabilities"]["Row"]>;
-      };
+      } & BelongsToAndroid;
       android_gallery: {
         Row: {
           id: string;
@@ -83,7 +97,9 @@ export interface Database {
           url: string;
         };
         Update: Partial<Database["public"]["Tables"]["android_gallery"]["Row"]>;
-      };
+      } & BelongsToAndroid;
     };
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }

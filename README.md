@@ -58,3 +58,24 @@ SQL Editor la primera vez.
   `active = true`; sin políticas de escritura para `anon`/`authenticated`
   (las escrituras del admin usan la service role key hasta que se agregue
   autenticación, spec sección 13).
+
+## Admin (`/admin`)
+
+Alta, edición, activación y baja de androides (spec sección 12). Corre en
+**modo solo lectura** (formularios deshabilitados, banner visible) hasta
+que además de `NEXT_PUBLIC_SUPABASE_URL`/`NEXT_PUBLIC_SUPABASE_ANON_KEY`
+completes en `.env.local`:
+
+```
+SUPABASE_SERVICE_ROLE_KEY=tu-service-role-key
+```
+
+Es la key de Settings → API → service_role. Las escrituras del admin la
+necesitan porque las políticas RLS solo permiten lectura pública — nunca
+se expone al cliente, solo la usan las Server Actions en
+`src/app/admin/actions.ts`.
+
+**Sin autenticación todavía** (permitido en desarrollo por la spec, sección
+13). Antes de desplegar este proyecto en un lugar público, `/admin` debe
+protegerse con Supabase Auth o un gate equivalente — hoy cualquiera con la
+URL puede editar o borrar androides si el proyecto está conectado.
