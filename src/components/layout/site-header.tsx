@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Search, User, ShoppingCart } from "lucide-react";
 
+import { CartBadge } from "./cart-badge";
+
 const NAV_LINKS = [
   { href: "/", label: "Inicio" },
   { href: "/androides", label: "Androides" },
@@ -53,6 +55,7 @@ export function SiteHeader() {
           >
             <ShoppingCart className="size-4" />
             Carrito
+            <CartBadge />
           </Link>
         </div>
       </div>
